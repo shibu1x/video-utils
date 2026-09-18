@@ -1,0 +1,11 @@
+services:
+  dev:
+    # docker compose run --rm dev main.py
+    image: ${REGISTRY}/video_utils:dev
+    build:
+      context: ./app
+      dockerfile: Dockerfile.dev
+    tty: true
+    volumes:
+      - "./app:/app"
+      - "./data:/data"

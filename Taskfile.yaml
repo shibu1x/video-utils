@@ -1,0 +1,40 @@
+version: "3"
+
+dotenv: [".env"]
+
+tasks:
+  build:
+    cmds:
+      - task: amd
+      - docker buildx imagetools create -t ${REGISTRY}/${APP_NAME}:latest ${REGISTRY}/${APP_NAME}:amd
+      - ssh ${DEPLOY_HOST} "docker pull ${REGISTRY}/${APP_NAME}:latest"
+      - say -v Samantha "The Docker build is complete."
+
+  amd:
+    internal: true
+    silent: true
+    dir: app
+    cmds:
+      - |
+        docker buildx build \
+          --builder ${AMD64_BUILDER} \
+          --platform linux/amd64 \
+          --push \
+          -t ${REGISTRY}/${APP_NAME}:amd .
+
+
+  arm:
+    internal: true
+    silent: true
+    dir: app
+    cmds:
+      - |
+        docker buildx build \
+          --platform linux/arm64 \
+          --push \
+          -t ${REGISTRY}/${APP_NAME}:arm .
+
+  run:
+    cmds:
+      - scp data/config/config.yaml ${DEPLOY_HOST}:/docker/cli/video_utils/
+      - ssh ${DEPLOY_HOST} 'nohup sh -c "cd /docker/cli && docker compose run --rm video_utils --encode" > /tmp/video_utils.log 2>&1 &'
