@@ -36,5 +36,5 @@ tasks:
 
   run:
     cmds:
-      - scp data/config/config.yaml ${DEPLOY_HOST}:/docker/cli/video_utils/
-      - ssh ${DEPLOY_HOST} 'nohup sh -c "cd /docker/cli && docker compose run --rm video_utils --encode" > /tmp/video_utils.log 2>&1 &'
+      - scp data/config/config.yaml ${DEPLOY_HOST}:/docker/cli/video-utils/
+      - ssh ${DEPLOY_HOST} 'nohup sh -c "cd /docker/cli && docker compose run --rm video-utils --encode" > /tmp/video-utils.log 2>&1 &'

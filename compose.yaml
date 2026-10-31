@@ -1,7 +1,7 @@
 services:
   dev:
     # docker compose run --rm dev main.py
-    image: ${REGISTRY}/video_utils:dev
+    image: ${REGISTRY}/video-utils:dev
     build:
       context: ./app
       dockerfile: Dockerfile.dev

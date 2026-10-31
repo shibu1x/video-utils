@@ -29,7 +29,7 @@ A single Python script (`app/main.py`) handles all logic.
 - `app/Dockerfile.dev` — development. `python:3.14-slim`, no QSV
 - The `dev` service in `compose.yaml` mounts `./app` and `./data`
 
-**Deploy target:** Runs as `docker compose run --rm video_utils` on `DEPLOY_HOST`. Built for linux/amd64 via `AMD64_BUILDER` and pushed to `REGISTRY`.
+**Deploy target:** Runs as `docker compose run --rm video-utils` on `DEPLOY_HOST`. Built for linux/amd64 via `AMD64_BUILDER` and pushed to `REGISTRY`.
 
 ## config.yaml
 
